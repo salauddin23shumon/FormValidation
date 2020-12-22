@@ -1,0 +1,59 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:2.0.0-RC1"
+    }
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.8.5"
+}
+
+ext {
+    minSdk = 14
+    targetSdk = 30
+    compileSdkVersion = 30
+    buildToolsVersion = "30.0.2"
+    androidSupportLibVersion = "28.0.0"
+    versionCode = 9
+    versionName = "4.2"
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    filesSpec {
+        from "build/libs"
+        into "/"
+    }
+    pkg {
+        repo = "android-libraries"
+        name = "com.basgeekball.awesomevalidation"
+        licenses = ["MIT"]
+        websiteUrl = "https://github.com/thyrlian/AwesomeValidation"
+        issueTrackerUrl = "https://github.com/thyrlian/AwesomeValidation/issues"
+        vcsUrl = "https://github.com/thyrlian/AwesomeValidation.git"
+        labels = ["Android", "UI", "validation"]
+        version {
+            name = project.ext.versionName
+            released  = new Date()
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://maven.google.com"
+        }
+        google()
+    }
+}
